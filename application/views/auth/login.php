@@ -1,49 +1,65 @@
 <!-- Outer Row -->
 <div class="row justify-content-center">
 
-  <div class="col-xl-10 col-lg-12 col-md-9">
+  <div class="col-xl-7 col-sm-10">
 
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-          <div class="col-lg-6">
+          <div class="col">
             <div class="p-5">
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
               </div>
-              <form class="user">
-                <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                </div>
-                <div class="form-group">
-                  <div class="custom-control custom-checkbox small">
-                    <input type="checkbox" class="custom-control-input" id="customCheck">
-                    <label class="custom-control-label" for="customCheck">Remember
-                      Me</label>
+
+
+              <?php if ($this->session->flashdata('message_success')) : ?>
+                <div class="notification-fb">
+                  <div class="alert alert-success  alert-dismissible fade show" role="alert">
+                    <?= $this->session->flashdata('message_success'); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-user btn-block">
-                  Login
-                </button>
-                <hr>
-                <a href="index.html" class="btn btn-google btn-user btn-block">
-                  <i class="fab fa-google fa-fw"></i> Login with Google
-                </a>
-                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                  <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                </a>
-              </form>
+              <?php endif; ?>
+
+
+              <?php if ($this->session->flashdata('message_error')) : ?>
+                <div class="notification-fb">
+                  <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                    <?= $this->session->flashdata('message_error'); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </div>
+              <?php endif; ?>
+
+
+
+              <!-- <form class="user"> -->
+              <?= form_open('auth', 'class="user"'); ?>
+              <div class="form-group">
+                <input type="text" name="email" value="<?= set_value('email'); ?>" class="form-control  <?= form_error('email') ? 'is-invalid' : ''; ?>  form-control-user" placeholder="Alamat email" required autofocus>
+                <div class="invalid-feedback ml-2"><?= form_error('email'); ?></div>
+              </div>
+              <div class="form-group">
+                <input type="password" name="password" class="form-control <?= form_error('password') ? 'is-invalid' : ''; ?>  form-control-user" placeholder="Password">
+                <div class="invalid-feedback ml-2"><?= form_error('password'); ?></div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-user btn-block">
+                Login
+              </button>
+              <!-- </form> -->
+              <?= form_close(); ?>
               <hr>
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                <a class="small" href="#">Lupa Password?</a>
               </div>
               <div class="text-center">
-                <a class="small" href="register.html">Create an Account!</a>
+                <a class="small" href="<?= site_url('auth/register'); ?>">Belum mempunyai akun? buat sekarang</a>
               </div>
             </div>
           </div>

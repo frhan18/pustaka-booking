@@ -13,9 +13,13 @@ class Auth extends CI_Controller
   public function index()
   {
 
-    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
-    $this->form_validation->set_rules('password', 'Password', 'required|trim');
-
+    $this->form_validation->set_rules('password', 'Password', 'required|trim', [
+      'required' => '{field} tidak boleh kosong!'
+    ]);
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
+      'required' => '{field} tidak boleh kosong!',
+      'valid_email' => 'Alamat {field} tidak benar!',
+    ]);
 
     if (!$this->form_validation->run()) {
       $data['title'] = 'Login';
@@ -30,14 +34,28 @@ class Auth extends CI_Controller
 
   public function register()
   {
-    $this->form_validation->set_rules('name', 'Nama', 'required|trim');
-    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
-    $this->form_validation->set_rules('password1', 'Password', 'required|trim|matches[password2]');
-    $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+    $this->form_validation->set_rules('name', 'Nama', 'required|trim', [
+      'required' => '{field} tidak boleh kosong!'
+    ]);
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+      'required' => '{field} tidak boleh kosong!',
+      'valid_email' => 'Alamat {field} tidak benar!',
+      'is_unique' => 'Alamat {field} sudah terdaftar'
+    ]);
+    $this->form_validation->set_rules('password1', 'Password', 'required|trim', [
+      'required' => '{field} tidak boleh kosong!',
+    ]);
+    $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]', [
+      'matches' => '{field} tidak sama dengan password utama',
+      'required' => '{field} tidak boleh kosong!',
+    ]);
 
 
     if (!$this->form_validation->run()) {
+      $data['title'] = 'Register Account';
+      $this->load->view('template/frontend/header', $data);
       $this->load->view('auth/register');
+      $this->load->view('template/frontend/footer');
     } else {
       $data = [
         'id_user'      => str_replace('.', '', uniqid('', true)),
@@ -78,10 +96,10 @@ class Auth extends CI_Controller
             $this->session->set_userdata($new_session);
           }
 
-          if ($user['role_id'] == 1) { // role admin
+          if ($user['id_role'] == 1) { // role admin
             redirect('/admin/index');
           } else { // role users
-            redirect('users/profile');
+            redirect('/users/profile');
           }
         } else {
           $this->session->set_flashdata('message_error', 'Password salah!');
@@ -95,5 +113,16 @@ class Auth extends CI_Controller
       $this->session->set_flashdata('message_error', 'Alamat email tidak terdaftar!');
       redirect('auth/index');
     }
+  }
+
+
+
+  public function logout()
+  {
+    $this->session->unset_userdata('id_user');
+    $this->session->unset_userdata('id_role');
+
+    $this->session->set_flashdata('message_success', 'Akun berhasil di keluarkan');
+    redirect('/auth/index');
   }
 }
