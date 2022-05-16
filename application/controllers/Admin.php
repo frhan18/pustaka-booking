@@ -13,8 +13,8 @@ class Admin extends CI_Controller
   public function index()
   {
     $data['title'] = 'Dashboard';
-    // $this->load->view('template/frontend/header', $data);
+    $this->load->view('template/frontend/header', $data);
     $this->load->view('template/backend/index');
-    // $this->load->view('template/frontend/footer');
+    $this->load->view('template/frontend/footer');
   }
 }
