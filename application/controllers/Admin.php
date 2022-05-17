@@ -10,6 +10,8 @@ class Admin extends CI_Controller
 
     if (!$this->session->userdata('id_role') || !$this->session->userdata('id_user')) {
       redirect('/auth/index');
+    } else if ($this->session->userdata('id_role') == 2) {
+      redirect('users/index');
     }
   }
 

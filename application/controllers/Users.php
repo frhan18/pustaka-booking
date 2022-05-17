@@ -8,10 +8,17 @@ class Users extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        if (!$this->session->userdata('id_role') || !$this->session->userdata('id_user')) {
+            redirect('auth/index');
+        } else if ($this->session->userdata('id_role') == 1) {
+            redirect('admin/index');
+        }
     }
 
     public function index()
     {
+
         $data['title'] = 'Dashboard';
         $data['get_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
 
