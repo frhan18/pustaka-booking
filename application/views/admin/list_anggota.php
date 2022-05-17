@@ -85,10 +85,6 @@
 
         </section>
 
-
-        <section>
-
-        </section>
     </div>
 
 
@@ -140,19 +136,23 @@
                 <div class="form-group row">
                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
-                        <input type="text" name="email" value="<?= set_value('email'); ?>" class="form-control" id="email" placeholder="johndoe@gmail.com" required>
+                        <input type="text" name="email" value="<?= set_value('email'); ?>" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email" placeholder="johndoe@gmail.com">
+                        <div class="invalid-feedback"><?= form_error('email'); ?></div>
+
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="name" class="col-sm-3 col-form-label">Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="name" value="<?= set_value('name'); ?>" class="form-control" id="name" placeholder="john doe">
+                        <input type="text" name="name" value="<?= set_value('name'); ?>" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" id="name" placeholder="john doe">
+                        <div class="invalid-feedback"><?= form_error('name'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="password" class="col-sm-3 col-form-label">Password</label>
                     <div class="col-sm-9">
-                        <input type="password" name="password" value="<?= set_value('password'); ?>" class="form-control" id="email" placeholder="Password" required>
+                        <input type="password" name="password" value="<?= set_value('password'); ?>" class="form-control <?= form_error('password') ? 'is-invalid' : ''; ?>" id="email" placeholder="Password">
+                        <div class="invalid-feedback"><?= form_error('password'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -162,6 +162,7 @@
                             <option selected>----Pilih----</option>
                             <option value="1">Administrator</option>
                             <option value="2">Member</option>
+                            <div class="invalid-feedback"><?= form_error('id_role'); ?></div>
                         </select>
                     </div>
                 </div>
@@ -215,22 +216,26 @@
                     <div class="form-group row">
                         <label for="email" class="col-sm-3 col-form-label">Email</label>
                         <div class="col-sm-9">
-                            <input type="text" name="email" value="<?= $row['email'] ? $row['email']  : set_value('email'); ?>" class="form-control" id="email">
+                            <input type="text" name="email" value="<?= $row['email'] ? $row['email']  : set_value('email'); ?>" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email">
+                            <div class="invalid-feedback"><?= form_error('email'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="name" class="col-sm-3 col-form-label">Name</label>
                         <div class="col-sm-9">
-                            <input type="text" name="name" value="<?= $row['name'] ? $row['name']  : set_value('name'); ?>" class="form-control" id="name">
+                            <input type="text" name="name" value="<?= $row['name'] ? $row['name']  : set_value('name'); ?>" class="form-control  <?= form_error('name') ? 'is-invalid' : ''; ?>" id="name">
+                            <div class="invalid-feedback"><?= form_error('name'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="id_role" class="col-sm-3 col-form-label">Role</label>
                         <div class="col-sm-9">
-                            <select class="custom-select" name="id_role">
+                            <select class="custom-select <?= form_error('id_role') ? 'is-invalid' : ''; ?>" name="id_role">
                                 <option selected>----Pilih----</option>
                                 <option value="1" <?php if ($row['id_role'] == 1) echo 'selected'; ?>>Administrator</option>
                                 <option value="2" <?php if ($row['id_role'] == 2) echo 'selected'; ?>>Member</option>
+
+                                <div class="invalid-feedback"><?= form_error('id_role'); ?></div>
                             </select>
                         </div>
                     </div>

@@ -67,20 +67,48 @@ class Admin extends CI_Controller
 
   public function insert_anggota()
   {
-    $data = [
-      'id_user'      => str_replace('.', '', uniqid('', true)),
-      'email'        => htmlspecialchars($this->input->post('email', true)),
-      'name'         => htmlspecialchars($this->input->post('name', true)),
-      'password'     => htmlspecialchars(password_hash($this->input->post('password', true), PASSWORD_DEFAULT)),
-      'id_role'      => htmlspecialchars($this->input->post('id_role', true)),
-      'is_active'    => htmlspecialchars($this->input->post('is_active', true)),
-      'image'        => 'default.svg',
-      'created_at'   => time()
-    ];
 
-    if ($this->db->insert('user', $data)) {
-      $this->session->set_flashdata('message_success', 'Data anggota berhasil di tambahkan');
-      redirect('admin/anggota');
+    $this->form_validation->set_rules('name', 'Nama', 'required|trim', [
+      'required' => '{field} tidak boleh kosong',
+
+    ]);
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+      'required' => '{field} tidak boleh kosong',
+      'valid_email' => 'Alamat {field} salah!',
+      'is_unique' => '{field} sudah terdaftar'
+    ]);
+    $this->form_validation->set_rules('password', 'Password', 'required|trim', [
+      'required' => '{field} tidak boleh kosong',
+    ]);
+
+    if (!$this->form_validation->run()) {
+      $data['title'] = 'Anggota';
+      $data['get_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+      $data['user'] = $this->db->select('*')
+        ->from('user')
+        ->join('user_role', 'user_role.id_role=user.id_role')
+        ->get()->result_array();
+      $this->load->view('template/backend/header', $data);
+      $this->load->view('template/backend/sidebar', $data);
+      $this->load->view('template/backend/topbar', $data);
+      $this->load->view('admin/list_anggota', $data);
+      $this->load->view('template/backend/footer');
+    } else {
+      $data = [
+        'id_user'      => str_replace('.', '', uniqid('', true)),
+        'email'        => htmlspecialchars($this->input->post('email', true)),
+        'name'         => htmlspecialchars($this->input->post('name', true)),
+        'password'     => htmlspecialchars(password_hash($this->input->post('password', true), PASSWORD_DEFAULT)),
+        'id_role'      => htmlspecialchars($this->input->post('id_role', true)),
+        'is_active'    => htmlspecialchars($this->input->post('is_active', true)),
+        'image'        => 'default.svg',
+        'created_at'   => time()
+      ];
+
+      if ($this->db->insert('user', $data)) {
+        $this->session->set_flashdata('message_success', 'Data anggota berhasil di tambahkan');
+        redirect('admin/anggota');
+      }
     }
   }
 

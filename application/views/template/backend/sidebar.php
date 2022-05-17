@@ -18,24 +18,43 @@
       </div>
 
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="<?= site_url('admin/index'); ?>">
-          <i class="fas fa-fw fa-home"></i>
-          <span>Dashboard</span></a>
-      </li>
+      <?php if ($get_user['id_role'] == 1) : ?>
 
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/anggota'); ?>">
-          <i class="fas fa-fw fa-address-book"></i>
-          <span>Anggota</span></a>
-      </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/buku'); ?>">
-          <i class="fas fa-fw fa-book"></i>
-          <span>Buku</span></a>
-      </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+          <a class="nav-link" href="<?= site_url('admin/index'); ?>">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Dashboard</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="<?= site_url('admin/anggota'); ?>">
+            <i class="fas fa-fw fa-address-book"></i>
+            <span>Anggota</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="<?= site_url('admin/buku'); ?>">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Buku</span></a>
+        </li>
+
+      <?php else : ?>
+        <li class="nav-item active">
+          <a class="nav-link" href="<?= site_url('users/index'); ?>">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profile</span></a>
+        </li>
+
+        <li class="nav-item ">
+          <a class="nav-link" href="<?= site_url('users/index'); ?>">
+            <i class="fas fa-fw fa-user-tag"></i>
+            <span>Edit profile</span></a>
+        </li>
+
+
+      <?php endif; ?>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
