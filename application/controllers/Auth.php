@@ -13,6 +13,10 @@ class Auth extends CI_Controller
   public function index()
   {
 
+    if ($this->session->userdata('id_user')) {
+      redirect('users/index');
+    }
+
     $this->form_validation->set_rules('password', 'Password', 'required|trim', [
       'required' => '{field} tidak boleh kosong!'
     ]);
@@ -99,7 +103,11 @@ class Auth extends CI_Controller
           if ($user['id_role'] == 1) { // role admin
             redirect('/admin/index');
           } else { // role users
-            redirect('/users/profile');
+
+            if ($user['image'] == 'default.svg') {
+              $this->session->set_flashdata('popup_user', 'Silahkan ubah profile anda untuk ubah foto profil');
+              redirect('/users/index');
+            }
           }
         } else {
           $this->session->set_flashdata('message_error', 'Password salah!');
