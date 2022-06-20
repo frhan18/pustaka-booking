@@ -6,6 +6,15 @@ CARA PENGGUNAAN:
 4.BUAT DATA BASE DI http://localhost/phpmyadmin lalu import file pustaka_booking.sql
 5.SELAMAT BER EXPERIMEN
 
+NOTE: 
+-LOGIN: 
+    email:admin@gmail.com
+    pass:admin
+-MEMBER:
+    email:member@gmail.com
+    pass:Member123 
+
+
 "
     MAAF APLIKASI YANG DIBUAT SEDERHANA HEHE,
     MASIH TAHAP BELAJAR.
