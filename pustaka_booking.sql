@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Bulan Mei 2022 pada 10.19
+-- Waktu pembuatan: 20 Jun 2022 pada 17.16
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.3.30
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `pustaka_booking`
 --
-CREATE DATABASE IF NOT EXISTS `pustaka_booking` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `pustaka_booking`;
 
 -- --------------------------------------------------------
 
@@ -37,9 +35,9 @@ CREATE TABLE `buku` (
   `penerbit` varchar(50) NOT NULL,
   `tahun_terbit` varchar(10) NOT NULL,
   `isbn` varchar(50) NOT NULL,
-  `stok` int(11) NOT NULL,
-  `dipinjam` int(11) NOT NULL,
-  `dibooking` int(11) NOT NULL,
+  `stok` int(11) DEFAULT NULL,
+  `dipinjam` int(11) DEFAULT NULL,
+  `dibooking` int(11) DEFAULT NULL,
   `image` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -48,8 +46,8 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id`, `judul_buku`, `id_kategori`, `pengarang`, `penerbit`, `tahun_terbit`, `isbn`, `stok`, `dipinjam`, `dibooking`, `image`) VALUES
-(1, 'PHP Komplet', 1, 'Bambang agus setiawan', 'Elex media computindo', '2014', '170522001', 5, 1, 1, 'php-Komplet.jpg'),
-(2, 'Clean code javascript 2019', 1, 'Robert ', 'Robert', '2019', '170522002', 10, 5, 4, 'clean-code-javascript-2019.jpg\r\n');
+(8, 'Laskar Pelangi', 4, 'Andre Hirata', 'Bentang Pustaka', '2005', '454545453', NULL, NULL, NULL, 'Laskar_pelangi_sampul.jpg'),
+(9, 'One Piece', 3, 'Eiichiro Oda', 'Weekly Shōnen Jump', '1997', '81281281281', NULL, NULL, NULL, 'one_piece.jpg');
 
 -- --------------------------------------------------------
 
@@ -68,7 +66,6 @@ CREATE TABLE `kategori` (
 
 INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
 (1, 'Komputer'),
-(2, 'Bahasa'),
 (3, 'Sains'),
 (4, 'Hoby');
 
@@ -96,8 +93,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `name`, `email`, `password`, `image`, `id_role`, `is_active`, `created_at`, `updated_at`) VALUES
 ('628251b8c8321540816554', 'admin', 'admin@gmail.com', '$2y$10$f4wbJTyeJufdVaDqIG4Uke370X9ElKaaoBSvSPlJ3P5eAGdq3eepa', 'default.svg', 1, 1, 1652707768, 0),
-('62830192d783c308197672', 'Farhan', 'farhan18apr02@gmail.com', '$2y$10$AAK/8J1PnNz9t8hLNgoyGOphJLu9ImVxdq5vSMyoPW5RetDvyr8HC', 'default.svg', 1, 1, 1652752786, 0),
-('62835414df6a2443597632', 'Member', 'member@gmail.com', '$2y$10$k343DLxTGAjRKLXCLQP6NuXkwERlmpGucOYhN1Ci5Ib66Qukm1gGe', 'default.svg', 2, 1, 1652773909, 0);
+('62830192d783c308197672', 'Farhan', 'farhan18apr02@gmail.com', '$2y$10$AAK/8J1PnNz9t8hLNgoyGOphJLu9ImVxdq5vSMyoPW5RetDvyr8HC', 'default.svg', 1, 0, 1652752786, 1655724570),
+('62b0820b6f477473126006', 'Member', 'member@gmail.com', '$2y$10$Cq/bfwtPRtYIb5rLGHyVc.5ET2DnzKpacFnNjGk9VrvULWT6J4/5.', '', 2, 1, 1655734795, 1655737395);
 
 -- --------------------------------------------------------
 
@@ -154,13 +151,13 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT untuk tabel `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_role`
