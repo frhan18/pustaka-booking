@@ -103,11 +103,7 @@ class Auth extends CI_Controller
           if ($user['id_role'] == 1) { // role admin
             redirect('/admin/index');
           } else { // role users
-
-            if ($user['image'] == 'default.svg') {
-              $this->session->set_flashdata('popup_user', 'Silahkan ubah profile anda untuk ubah foto profil');
-              redirect('/users/index');
-            }
+            redirect('/users/index');
           }
         } else {
           $this->session->set_flashdata('message_error', 'Password salah!');

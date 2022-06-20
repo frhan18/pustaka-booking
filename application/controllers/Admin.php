@@ -68,6 +68,13 @@ class Admin extends CI_Controller
   public function insert_anggota()
   {
 
+    $data['title'] = 'Anggota';
+    $data['get_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+    $data['user'] = $this->db->select('*')
+      ->from('user')
+      ->join('user_role', 'user_role.id_role=user.id_role')
+      ->get()->result_array();
+
     $this->form_validation->set_rules('name', 'Nama', 'required|trim', [
       'required' => '{field} tidak boleh kosong',
 
@@ -82,12 +89,8 @@ class Admin extends CI_Controller
     ]);
 
     if (!$this->form_validation->run()) {
-      $data['title'] = 'Anggota';
-      $data['get_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
-      $data['user'] = $this->db->select('*')
-        ->from('user')
-        ->join('user_role', 'user_role.id_role=user.id_role')
-        ->get()->result_array();
+
+      $data['count_all_user'] = $this->db->count_all('user');
       $this->load->view('template/backend/header', $data);
       $this->load->view('template/backend/sidebar', $data);
       $this->load->view('template/backend/topbar', $data);
