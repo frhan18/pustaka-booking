@@ -4,10 +4,10 @@
     <!-- Page Heading -->
     <div class="box-wrapper">
         <section>
-            <h1 class="h3 mb-4 text-gray-800">Halaman Admin / <?= $title; ?></h1>
-            <p>List data anggota</p>
+            <h1 class="h3 mb-1 text-gray-800">Data Anggota</h1>
+            <p>Halo, <?= $get_user['name']; ?> jumlah pengguna terdaftar saat ini <b> <?= $count_all_user; ?></b> anggota.</p>
 
-            <button type="button" data-toggle="modal" data-target="#modalTambah" class="btn btn-xs btn-dark mb-3"><i class="fas fa-plus"></i> Tambah Anggota</button>
+            <button type="button" data-toggle="modal" data-target="#modalTambah" class="btn btn-xs btn-dark mb-3"><i class="fas fa-plus"></i> Tambah Anggota Baru</button>
 
             <?php if ($this->session->flashdata('message_success')) : ?>
                 <div class="notification-fb">
@@ -29,12 +29,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>ID User</th>
-                                    <th>Name</th>
+                                    <th>Foto</th>
+                                    <th>Nama</th>
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Status</th>
-                                    <th>Created_at</th>
+                                    <th>Terdaftar</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -45,13 +45,13 @@
                                 foreach ($user as $row) : ?>
 
                                     <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $row['id_user']; ?></td>
-                                        <td><?= $row['name']; ?></td>
-                                        <td><?= $row['email']; ?></td>
-                                        <td>
-                                            <!-- <?= ($row['id_role'] == 1) ? $row['role'] : $row['role']; ?> -->
-
+                                        <td style="vertical-align: middle;"><?= $no++; ?></td>
+                                        <td style="vertical-align: middle;">
+                                            <img src="<?= base_url('/assets/img/') . $get_user['image']; ?>" class="img-thumbnail" width="60">
+                                        </td>
+                                        <td style="vertical-align: middle;"><?= $row['name']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $row['email']; ?></td>
+                                        <td style="vertical-align: middle;">
                                             <?php if ($row['id_role'] == 1) : ?>
                                                 <p class="text-dark" style="font-weight: bold;"><?= $row['role']; ?></p>
                                             <?php else : ?>
@@ -59,7 +59,7 @@
                                             <?php endif; ?>
 
                                         </td>
-                                        <td>
+                                        <td style="vertical-align: middle;">
                                             <?php if ($row['is_active'] == 1) : ?>
                                                 <p class="text-success">Aktif</p>
                                             <?php else : ?>
@@ -67,8 +67,8 @@
                                             <?php endif; ?>
 
                                         </td>
-                                        <td><?= date('Y-m-d H:i:s', $row['created_at']); ?></td>
-                                        <td>
+                                        <td style="vertical-align: middle;"><?= date('d M Y ', $row['created_at']); ?></td>
+                                        <td style="vertical-align: middle;">
                                             <span class="d-inline">
                                                 <button type="button" data-delete-url="<?= site_url('admin/delete_anggota/' . $row['id_user']); ?>" onclick="deleteConfirm(this)" title="hapus" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> </button>
                                                 <button type="button" data-toggle="modal" data-target="#modalEdit<?= $row['id_user']; ?>" title="edit" class="btn btn-sm btn-warning"><i class="fas fa-pen"></i> </button>
@@ -134,24 +134,24 @@
                 <?= form_open('admin/insert_anggota'); ?>
 
                 <div class="form-group row">
-                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                    <label for="email" class="col-sm-3 col-form-label">Alamat email</label>
                     <div class="col-sm-9">
-                        <input type="text" name="email" value="<?= set_value('email'); ?>" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email" placeholder="johndoe@gmail.com">
+                        <input type="text" name="email" value="<?= set_value('email'); ?>" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email">
                         <div class="invalid-feedback"><?= form_error('email'); ?></div>
 
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label">Name</label>
+                    <label for="name" class="col-sm-3 col-form-label">Nama pengguna</label>
                     <div class="col-sm-9">
-                        <input type="text" name="name" value="<?= set_value('name'); ?>" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" id="name" placeholder="john doe">
+                        <input type="text" name="name" value="<?= set_value('name'); ?>" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" id="name">
                         <div class="invalid-feedback"><?= form_error('name'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="password" class="col-sm-3 col-form-label">Password</label>
                     <div class="col-sm-9">
-                        <input type="password" name="password" value="<?= set_value('password'); ?>" class="form-control <?= form_error('password') ? 'is-invalid' : ''; ?>" id="email" placeholder="Password">
+                        <input type="password" name="password" value="<?= set_value('password'); ?>" class="form-control <?= form_error('password') ? 'is-invalid' : ''; ?>" id="password">
                         <div class="invalid-feedback"><?= form_error('password'); ?></div>
                     </div>
                 </div>
@@ -169,9 +169,11 @@
                 <div class="form-group row">
                     <label for="is_active" class="col-sm-3 col-form-label">Active user</label>
                     <div class="col-sm-9">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" name="is_active" value="1" class="custom-control-input" id="is_active" checked>
-                            <label class="custom-control-label" for="is_active">Aktifkan anggota / Nonaktifkan?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="is_active" value="1" id="is_active" checked>
+                            <label class="form-check-label" for="is_active">
+                                Aktifkan / nonaktifkan account?
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -192,9 +194,6 @@
 
 <!-- Modal edit -->
 <?php foreach ($user as $row) : ?>
-
-
-
     <div class="modal fade" id="modalEdit<?= $row['id_user']; ?>" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -239,12 +238,15 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="is_active" class="col-sm-3 col-form-label">Active user</label>
                         <div class="col-sm-9">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" name="is_active" value="<?= $row['is_active'] ? $row['is_active']  : '1'; ?>" class="custom-control-input" id="is_active" <?= $row['is_active'] ? 'checked' : ''; ?>>
-                                <label class="custom-control-label" for="is_active">Aktifkan anggota / Nonaktifkan?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_active" value="1" id="is_active" <?php if ($row['is_active'] == 1) echo 'checked'; ?>>
+                                <label class="form-check-label" for="is_active">
+                                    Aktifkan / nonaktifkan account?
+                                </label>
                             </div>
                         </div>
                     </div>

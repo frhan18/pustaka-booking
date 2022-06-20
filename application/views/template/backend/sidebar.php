@@ -22,37 +22,40 @@
 
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item <?php if ($title == 'Dashboard') echo 'active' ?>">
           <a class="nav-link" href="<?= site_url('admin/index'); ?>">
             <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span></a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item <?php if ($title == 'Anggota') echo 'active' ?>">
           <a class="nav-link" href="<?= site_url('admin/anggota'); ?>">
             <i class="fas fa-fw fa-address-book"></i>
             <span>Anggota</span></a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="<?= site_url('admin/buku'); ?>">
+        <li class="nav-item <?php if ($title == 'Daftar Buku') echo 'active' ?>">
+          <a class="nav-link" href="<?= site_url('admin/list_buku'); ?>">
             <i class="fas fa-fw fa-book"></i>
             <span>Buku</span></a>
         </li>
+        <li class="nav-item <?php if ($title == 'Kategori Buku') echo 'active' ?>">
+          <a class="nav-link" href="<?= site_url('admin/cat_buku'); ?>">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Kategori Buku</span></a>
+        </li>
 
       <?php else : ?>
-        <li class="nav-item active">
-          <a class="nav-link" href="<?= site_url('users/index'); ?>">
+        <li class="nav-item <?php if ($title == 'Home') echo 'active' ?>">
+          <a class="nav-link" href="<?= site_url('users'); ?>">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Home</span></a>
+        </li>
+        <li class="nav-item <?php if ($title == 'Profile') echo 'active' ?>">
+          <a class="nav-link" href="<?= site_url('users/profile'); ?>">
             <i class="fas fa-fw fa-user"></i>
             <span>Profile</span></a>
         </li>
-
-        <li class="nav-item ">
-          <a class="nav-link" href="<?= site_url('users/index'); ?>">
-            <i class="fas fa-fw fa-user-tag"></i>
-            <span>Edit profile</span></a>
-        </li>
-
 
       <?php endif; ?>
 
