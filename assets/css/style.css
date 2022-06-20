@@ -1,0 +1,46 @@
+/*
+     Login style
+*/
+#bg-container__auth {
+    background-image: url('https://cdn2.f-cdn.com/contestentries/1672507/3722903/5dd7ded066799_thumb900.jpg');
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.login-container {
+    width: 100%;
+    margin-top: 5rem;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    border-radius: 12px;
+}
+
+.login-container .login-body__content {
+    padding: 3px;
+}
+
+.login-container .login-body__content .login-body__info {
+    margin-bottom: 30px;
+}
+
+.login-container .login-body__content .login-body__info h3 {
+    font-size: 28px;
+    color: #000;
+}
+
+.register-container {
+    width: 100%;
+    margin-top: 5rem;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    border-radius: 12px;
+
+}
+
+.register-container .register-account__info {
+    text-align: center;
+}
